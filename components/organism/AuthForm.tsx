@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import {set, z} from "zod"
+import {z} from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -19,8 +19,9 @@ import CustomInput from '../atoms/CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { signIn, signUp } from '@/lib/actions/user.actions'
 
-const AuthForm = ({type}: AuthFormProps) => {
+const AuthForm = ({type}: {type: string}) => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const formSchema = authFormSchema(type);
@@ -40,31 +41,31 @@ const AuthForm = ({type}: AuthFormProps) => {
         try {
             if(type === 'sign-up') {
                 // const userData = {
-                //     firstName: data.firstName,
-                //     lastName: data.lastName,
-                //     address1: data.address1,
-                //     city: data.city,
-                //     state: data.state,
-                //     postalCode: data.postalCode,
-                //     dateOfBirth: data.dateOfBirth,
-                //     ssn: data.ssn,
+                //     firstName: data.firstName!,
+                //     lastName: data.lastName!,
+                //     address1: data.address1!,
+                //     city: data.city!,
+                //     state: data.state!,
+                //     postalCode: data.postalCode!,
+                //     dateOfBirth: data.dateOfBirth!,
+                //     ssn: data.ssn!,
                 //     email: data.email,
                 //     password: data.password
                 // }
 
-                // const newUser = await SignUp(userData);
+                const newUser = await signUp(data);
 
-                // setUser(newUser);
+                setUser(newUser);
             }
 
             if(type === 'sign-in') {
-                // const response = await signIn({
-                //     email: data.email,
-                //     password: data.password
+                const response = await signIn({
+                    email: data.email,
+                    password: data.password,
                 
-                // })
+                })
 
-                //if(response) router.push('/')
+                if(response) router.push('/')
             }
         } catch(error) {
             console.log(error);
