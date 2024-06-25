@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Footer from "@/components/organism/Footer";
+import  PlaidLink  from "@/components/organism/PlaidLink";
   
 
 const MobileNav = ({user}: MobileNavProps) => {
@@ -69,7 +70,7 @@ const MobileNav = ({user}: MobileNavProps) => {
                                 </SheetClose>
                             )
                         })}
-                        USER
+                        <PlaidLink user={user}/>
                     </nav>
                     </SheetClose>
                    <Footer user={user} type='mobile'/>
