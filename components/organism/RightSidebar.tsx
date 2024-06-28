@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import BankCard from '@/components/organism/BankCard'
+import { countTransactionCategories } from '@/lib/utils'
+import { Category } from '@/components/atoms/Category'
 
 const RightSidebar = ({user, transactions, banks}: RightSidebarProps) => {
+   const categories: CategoryCount[] = countTransactionCategories(transactions);
+
   return (
     <aside className='right-sidebar'>
         <section className='flex flex-col pb-8'>
@@ -67,7 +71,12 @@ const RightSidebar = ({user, transactions, banks}: RightSidebarProps) => {
                     Top categories
                 </h2>
                 <div className='space-y-5'>
-                    CATEGORIES
+                    {categories.map((category, index) => (
+                        <Category
+                            key={index}
+                            category={category}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
