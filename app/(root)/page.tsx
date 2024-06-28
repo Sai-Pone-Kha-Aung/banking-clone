@@ -1,9 +1,10 @@
 import HeaderBox from "@/components/atoms/HeaderBox"
 import TotalBalanceBox from "@/components/atoms/TotalBalanceBox"
 import RightSidebar from "@/components/organism/RightSidebar"
+import { getLoggedInUser } from "@/lib/actions/user.actions"
 
-const HomePage = () => {
-  const loggedIn = {firstName: "John"}
+const HomePage = async() => {
+  const loggedIn = await getLoggedInUser();
   return (
     <section className='home'>
       <div className='home-content'>
@@ -11,7 +12,7 @@ const HomePage = () => {
           <HeaderBox
             type="greeting"
             title="Welcome to MWE Bank"
-            user={loggedIn?.firstName || "Guest"}
+            user={loggedIn?.name || "Guest"}
             subtext="Access & manage your account and transactions efficiently"
           />
 
