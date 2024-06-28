@@ -119,9 +119,9 @@ export const createLinkToken = async (user: User) => {
     try {
       const  tokenParams = {
         user: {
-            client_user_id: user.$id,
+            client_user_id: user.$id
         },
-        client_name: user.name,
+        client_name: `${user.firstName} ${user.lastName}`,
         products: ['auth'] as Products[],
         language: 'en',
         country_codes: ['US'] as CountryCode[],
@@ -129,7 +129,7 @@ export const createLinkToken = async (user: User) => {
 
       const response = await plaidClient.linkTokenCreate(tokenParams);
 
-      return parseStringify(response);
+      return parseStringify({linkToken: response.data.link_token});
 
     } catch (error) {
       console.log('Error',error);
@@ -169,7 +169,7 @@ export const createBankAccount = async ({
     }
 }
 
-export const exanchgePublicToken = async ({
+export const exchangePublicToken = async ({
     publicToken, 
     user,
 } : exchangePublicTokenProps) => {
